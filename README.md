@@ -1,7 +1,7 @@
 
 # Chopstics web
 
-[![Build Status](https://travis-ci.org/seiji/chopstics_web.png?branch=master)](https://travis-ci.org/seiji/chopstics_web)
+[![Build Status](https://travis-ci.org/seiji/chopsticks_web.png?branch=master)](https://travis-ci.org/seiji/chopsticks_web)
 
 ## Installation
 
