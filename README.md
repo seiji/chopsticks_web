@@ -1,6 +1,7 @@
-# TestWeb
 
-TODO: Write  description
+# Chopstics web
+
+[![Build Status](https://travis-ci.org/seiji/chopstics_web.png?branch=master)](https://travis-ci.org/seiji/chopstics_web)
 
 ## Installation
 
