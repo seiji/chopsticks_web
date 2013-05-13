@@ -1,5 +1,3 @@
-source :rubygems
-
 gem 'sinatra'
 gem "mongo"
 gem "mongoid", "~> 3.0.0"

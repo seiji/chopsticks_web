@@ -1,10 +1,9 @@
-
 module Contactable
   def self.included(receiver)
     receiver.class_eval do
       field :name, type: String
       validates_presence_of :name
-      embeds_many :feeds, :class_name => "Feed"
+      has_many :feeds, validate: false
     end
   end
 end
