@@ -4,8 +4,7 @@ module Summary
         field :title, type: String
         field :link, type: String
         field :summary, type: String
-        field :read, type: Boolean
-        field :starred, type: Boolean
+        field :reads, type: Integer
         validates_presence_of :title
         validates_presence_of :link
         belongs_to :feed, touch: true

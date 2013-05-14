@@ -1,11 +1,11 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'app'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-
 require 'rspec'
 require 'database_cleaner'
 require "mongoid-rspec"
-require "app"
+require 'simplecov'
+require 'bundler'
+Bundler.require(:test)
+
+require File.expand_path("../../config/environment", __FILE__)
 
 RSpec.configure do |config|
   config.include Mongoid::Matchers
@@ -20,6 +20,11 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner[:mongoid].clean
   end
+  
 end
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+SimpleCov.start do
+  add_group "app", "/app"
+  add_filter "/spec/"
+  add_filter "/vendor/bundle/"
+end if ENV["COVERAGE"]

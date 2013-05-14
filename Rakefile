@@ -1,10 +1,23 @@
-task :default => [:spec]
+#!/usr/bin/env rake
+# Add files as lib/tasks/*.rake
+require 'bundler'
+Bundler.require(:default)
 
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec) do |spec|
-    spec.pattern = 'spec/**/*_spec.rb'
-    spec.rspec_opts = ['-cfs']
-  end
-rescue LoadError => e
+$:.unshift 'lib'
+$:.unshift 'app'
+
+require 'resque/tasks'
+task "resque:setup" do
+  ENV['TERM_CHILD'] = '1'
+  ENV['QUEUE'] = '*'
+  ENV['INTERBAL'] = '1'
 end
+
+desc "Alias for resque:work (To run workers on Heroku)"
+task "jobs:work" => "resque:work"
+
+task :environment do
+  require File.expand_path(File.join(*%w[ config environment ]), File.dirname(__FILE__))
+end
+
+Dir.glob('lib/tasks/**/*.rake').each { |r| load r }

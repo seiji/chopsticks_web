@@ -1,5 +1,6 @@
-$LOAD_PATH << File.expand_path(".")
-require 'app'
+$:.unshift 'config'
+
+require 'application'
 
 map '/assets' do
   environment = Sprockets::Environment.new
@@ -8,5 +9,5 @@ map '/assets' do
 end
 
 map '/' do
-  run Chopsticks::App
+  run App
 end

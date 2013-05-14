@@ -1,2 +1,3 @@
 web: bundle exec rackup config.ru -p $PORT
-#worker: bundle exec rake feeds:worker
+resque-web: bundle exec resque-web --foreground
+resque: bundle exec rake jobs:work

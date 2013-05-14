@@ -1,8 +1,6 @@
 require 'bundler'
 Bundler.require
 
-Mongoid.load!("config/mongoid.yml")
-
 class App < Sinatra::Base
   set :public_folder, "public"
   set :views, "app/views"
