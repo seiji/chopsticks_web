@@ -5,11 +5,11 @@ module Descriptive
     receiver.class_eval do
       field :title, type: String
       field :url, type: String
-      field :link, type: String
-      field :description, type: String
-      field :subscriber_count, type:Integer
+      field :feed_url, type: String
+      field :etag, type: String
+      field :subscriber_count, type: Integer
       validates_presence_of :title
-      validates_presence_of :link
+      validates_presence_of :feed_url
     end
   end
 end
@@ -28,8 +28,7 @@ class Feed
       @target.select { |entry| entry.starred == starred}
     end
   end
-  index({ url: 1 }, { unique: true,  background: true })
-  index({ link: 1 }, { unique: true,  background: true })
+  index({ feed_url: 1 }, { unique: true,  background: true })
 
   class << self
     def add (url)

@@ -1,9 +1,9 @@
+require 'bundler'
+Bundler.require(:test)
 require 'rspec'
 require 'database_cleaner'
 require "mongoid-rspec"
 require 'simplecov'
-require 'bundler'
-Bundler.require(:test)
 
 require File.expand_path("../../config/environment", __FILE__)
 
@@ -28,3 +28,9 @@ SimpleCov.start do
   add_filter "/spec/"
   add_filter "/vendor/bundle/"
 end if ENV["COVERAGE"]
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
+end

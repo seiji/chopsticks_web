@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
 
 gem 'sinatra'
 gem "foreman"
@@ -10,6 +9,7 @@ gem "mongo"
 gem 'mongoid', '~> 3.1.2'
 # fail if use in rubygems
 gem "feedzirra", git: "https://github.com/pauldix/feedzirra.git"
+gem "home_run"
 
 gem 'haml'
 gem 'coffee-script'
@@ -29,4 +29,6 @@ group :test do
   gem 'mongoid-rspec'
   gem 'database_cleaner'
   gem 'resque_spec'
+  gem 'webmock', '~> 1.9.0'      #  VCR is known to work with WebMock >= 1.8.0, < 1.10.
+  gem 'vcr'
 end
