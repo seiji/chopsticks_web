@@ -1,20 +1,35 @@
 require "feedzirra"
 require "models/feed"
+require "models/entry"
 
 class FeedJob
   @queue = :feed
 
   class << self
     def perform(feed_url)
-      feed_response = fetch feed_url
+      zfeed = fetch feed_url
       feed = Feed.where({feed_url: feed_url}).find_and_modify({ '$set'  => {
-                                                                  title: feed_response.title,
-                                                                  url: feed_response.url,
-                                                                  etag: feed_response.etag,
+                                                                  title: zfeed.title,
+                                                                  url: zfeed.url,
+                                                                  etag: zfeed.etag,
                                                                 },
                                                                 '$inc'  => {subscriber_count: 1}},
                                                               {'upsert' => 'true', :new => true})
-
+      zfeed.sanitize_entries!
+      zfeed.entries.each do | zentry |
+        entry = Entry.where({url: zentry.url}).find_and_modify({ '$set' => {
+                                                                   title: zentry.title,
+                                                                   author: zentry.author,
+                                                                   summary: zentry.summary,
+                                                                   content: zentry.content,
+                                                                 },
+                                                                 '$inc'  => {reads: 1}},
+                                                               {'upsert' => 'true', :new => true})
+        puts entry.url
+        entry.save
+        feed.entries.find_or_create_by(url: entry.url)
+      end
+      feed.save!
     end
 
     def fetch(feed_url)

@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require "jobs/feed_job"
+require "models/feed"
 
 describe FeedJob do
 
@@ -26,9 +27,12 @@ describe FeedJob do
   end                           # #request
 
   describe "#perform" do
-    url = 'http://blog.seiji.me/atom.xml'
-    VCR.use_cassette 'jobs/feed_job/response' do
-      FeedJob.perform(url)
+    it 'should perform feedjob' do
+      feed_url = 'http://blog.seiji.me/atom.xml'
+      VCR.use_cassette 'jobs/feed_job/response' do
+      FeedJob.perform(feed_url)
+        Feed.where(feed_url: feed_url).count.should == 1
+      end
     end
   end                           # #perform
 end

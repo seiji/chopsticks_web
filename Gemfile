@@ -9,7 +9,7 @@ gem "mongo"
 gem 'mongoid', '~> 3.1.2'
 # fail if use in rubygems
 gem "feedzirra", git: "https://github.com/pauldix/feedzirra.git"
-gem "home_run"
+gem 'home_run', :require=>'date'
 
 gem 'haml'
 gem 'coffee-script'

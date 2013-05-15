@@ -30,9 +30,8 @@ namespace :feed do
   end
 
   desc "Add a feed"
-  task :add, [:url] => :environment do |t, args|
-    puts "Add #{args[:url]}"
-    Feed.add(args[:url])
+  task :add, [:feed_url] => :environment do |t, args|
+    Feed.add(args[:feed_url])
   end
 end
 

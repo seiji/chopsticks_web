@@ -1,6 +1,6 @@
 development:
   sessions:
     default:
-      database: chopsticks
+      database: flow
       hosts:
         - localhost:27017

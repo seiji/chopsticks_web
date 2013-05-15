@@ -1,4 +1,5 @@
 require "jobs/feed_job"
+require "models/user"
 
 module Descriptive
   def self.included(receiver)
@@ -31,16 +32,17 @@ class Feed
   index({ feed_url: 1 }, { unique: true,  background: true })
 
   class << self
-    def add (url)
-      feed = self.where(url: url).first
-      unless feed
-        add_async(url)
-      end
+    def add (feed_url)
+      feed = self.where(feed_url: feed_url).first
+#      unless feed
+        add_async(feed_url)
+#      end
       feed
     end
 
-    def add_async(url)
-      Resque.enqueue(FeedJob, url)
+    def add_async(feed_url)
+      puts "Enqueue #{feed_url}"
+      Resque.enqueue(FeedJob, feed_url)
     end
   end
 end
