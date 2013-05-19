@@ -15,7 +15,7 @@ http_interactions:
       Server:
       - nginx/1.0.9
       Date:
-      - Tue, 14 May 2013 16:38:20 GMT
+      - Sun, 19 May 2013 16:31:40 GMT
       Content-Type:
       - text/xml
       Content-Length:
@@ -1141,5 +1141,5 @@ http_interactions:
         LnNlaWppLm1lL2Jsb2cvMjAxMi8wMi8yOC5wbmciIC8+PC9wPgpdXT48L2Nv
         bnRlbnQ+CiAgPC9lbnRyeT4KICAKPC9mZWVkPgo=
     http_version: 
-  recorded_at: Tue, 14 May 2013 16:38:20 GMT
-recorded_with: VCR 2.4.0
+  recorded_at: Sun, 19 May 2013 16:31:40 GMT
+recorded_with: VCR 2.5.0

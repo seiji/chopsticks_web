@@ -1,5 +1,6 @@
 require "jobs/feed_job"
 require "models/user"
+require "models/entry"
 
 module Descriptive
   def self.included(receiver)
@@ -34,18 +35,23 @@ class Feed
   index({ feed_url: 1 }, { unique: true,  background: true })
 
   class << self
-    def add (feed_url)
+    def add (feed_url, user=nil)
       feed = self.where(feed_url: feed_url).first
       unless feed
-        add_async(feed_url)
+        add_async(feed_url, user ? user.id : nil)
       end
       feed
     end
 
-    def add_async(feed_url)
+    def add_async(feed_url, user_id)
       puts "Enqueue #{feed_url}"
-      Resque.enqueue(FeedJob, feed_url)
+      
+      Resque.enqueue(FeedJob, feed_url, user_id)
     end
+  end
+
+  def entry(entry_id)
+    Entry.find(entry_id)
   end
 end
 

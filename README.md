@@ -1,7 +1,9 @@
 
-# Flow web
+# Flot web
 
 [![Build Status](https://travis-ci.org/seiji/flot_web.png?branch=master)](https://travis-ci.org/seiji/flot_web)
+
+[![Coverage Status](https://coveralls.io/repos/seiji/flot_web/badge.png)](https://coveralls.io/r/seiji/flot_web)
 
 ## Installation
 

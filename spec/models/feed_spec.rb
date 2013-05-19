@@ -17,8 +17,5 @@ describe Feed do |db|
   it { should have_many_related(:entries)}
   it { should have_index_for(feed_url: 1).with_options(unique: true, background: true) }
 
-  it 'should add site url' do
-    feed = Feed.add('http://blog.seiji.me/atom.xml')
-  end
 end
 

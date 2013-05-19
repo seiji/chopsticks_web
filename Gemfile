@@ -27,11 +27,12 @@ end
 
 group :test do
   gem 'rspec'
-  gem "rack-test", require: "rack/test"
   gem 'simplecov'
   gem 'mongoid-rspec'
   gem 'database_cleaner'
   gem 'resque_spec'
   gem 'webmock', '~> 1.9.0'      #  VCR is known to work with WebMock >= 1.8.0, < 1.10.
   gem 'vcr'
+  gem 'coveralls', require: false
+  gem "rack-test", require:"rack/test"
 end

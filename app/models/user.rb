@@ -8,6 +8,9 @@ module Contactable
   end
 end
 
+require_relative "feed"
+require_relative "user_entry"
+
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -15,7 +18,11 @@ class User
   include Contactable
 
   validates_uniqueness_of :name
-  has_and_belongs_to_many :feeds
+  has_and_belongs_to_many :feeds do 
+    def find_by_feed_url(feed_url)
+      @target.select { |feed| feed.feed_url == feed_url}.first
+    end
+  end
   index({ name: 1 }, { unique: true,  background: true })
 
   # User
@@ -24,20 +31,13 @@ class User
       self.where(name: name).create
     end    
   end
+
   def withdraw
-    
   end
 
   # Feed
-  def subscribe (title, link, description = nil)
-    feed = self.feeds.where(link: link).first
-    unless feed
-      feed = Feed.where({link: link}).find_and_modify({ '$set'  => {title: title, description: description},
-                                                        '$inc'  => {subscriber_count: 1}},
-                                                      {'upsert' => 'true', :new => true})
-      self.feeds << feed
-    end
-    feed
+  def subscribe (feed_url)
+    Feed.add(feed_url, self)
   end
 
   def unsubscribe(feed)
@@ -48,5 +48,13 @@ class User
 
   # Entry
   def entries
+    self.feeds.entries
+    # TODO: tuning
+    entries = self.feeds.inject([]) {|entries, feed| entries + feed.entries }
+    entries
+  end
+
+  def read(entry_id)
+    UserEntry.read(self.id, entry_id)
   end
 end

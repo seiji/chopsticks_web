@@ -1,12 +1,13 @@
 require "feedzirra"
 require "models/feed"
 require "models/entry"
+require "models/user"
 
 class FeedJob
   @queue = :feed
 
   class << self
-    def perform(feed_url)
+    def perform(feed_url, user_id)
       zfeed = fetch feed_url
       feed = Feed.where({feed_url: feed_url}).find_and_modify({ '$set'  => {
                                                                   title: zfeed.title,
@@ -27,6 +28,14 @@ class FeedJob
         entry.save
       end
       feed.save!
+
+      if user_id
+        user = User.find(user_id)
+        if user and !user.feeds.where(feed_url: feed_url).first
+          user.feeds << feed
+          user.save
+        end
+      end
     end
 
     def fetch(feed_url)
@@ -37,6 +46,7 @@ class FeedJob
                                       :on_failure => lambda {|url, response_code, responsea_header, response_body| # fail
                                         
                                       })
+
     end
   end
 end
