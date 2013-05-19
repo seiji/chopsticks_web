@@ -1,7 +1,7 @@
 
 # Flow web
 
-[![Build Status](https://travis-ci.org/seiji/flow_web.png?branch=master)](https://travis-ci.org/seiji/flow_web)
+[![Build Status](https://travis-ci.org/seiji/flot_web.png?branch=master)](https://travis-ci.org/seiji/flot_web)
 
 ## Installation
 

@@ -1,6 +1,6 @@
 development:
   sessions:
     default:
-      database: flow
+      database: flot
       hosts:
         - localhost:27017
