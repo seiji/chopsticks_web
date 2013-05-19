@@ -1,10 +1,12 @@
 require 'bundler'
-Bundler.require(:test)
+Bundler.require
+
 require 'rspec'
 require 'database_cleaner'
 require "mongoid-rspec"
 require 'simplecov'
-#require 'rack/test'
+require 'rack/test'
+require "vcr"
 
 require File.expand_path("../../config/environment", __FILE__)
 

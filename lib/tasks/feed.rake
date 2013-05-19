@@ -1,18 +1,6 @@
 require "models/feed"
-require "worker"
 
 namespace :feed do
-  desc "Start worker to periodically refresh feeds"
-  task :worker => :environment do
-    worker_out = STDOUT
-    worker_out.sync = true
-
-    worker = Worker.new(worker_out)
-    trap('TERM') { worker.stop }
-    trap('INT') { exit }
-    worker.start
-  end
-
   desc "Import feeds from OPML"
   task :import, [:file] => :environment do |t, args|
     file = File.open(args[:file], 'r')

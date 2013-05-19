@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
-
+gem 'sinatra', require:'sinatra/base'
+gem 'sinatra-namespace'
 gem "foreman"
 gem "resque"
 gem 'bson', '~> 1.8.3'

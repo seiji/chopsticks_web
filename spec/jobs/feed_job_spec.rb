@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require "resque_spec"
 require "jobs/feed_job"
 require "models/feed"
 

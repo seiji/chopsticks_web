@@ -5,8 +5,7 @@ require 'bundler'
 Bundler.require
 
 require File.expand_path(File.join(*%w[ config environment ]), File.dirname(__FILE__))
-
-require 'routes'
+require 'api'
 
 map '/assets' do
   environment = Sprockets::Environment.new
@@ -15,6 +14,5 @@ map '/assets' do
 end
 
 map '/' do
-  run App
+  run Flot::API
 end
-
