@@ -11,6 +11,7 @@ task :environment do
 end
 
 require 'resque/tasks'
+
 task "resque:setup" => :environment do
   ENV['TERM_CHILD'] = '1'
   ENV['QUEUE'] = '*'

@@ -17,17 +17,14 @@ class FeedJob
                                                               {'upsert' => 'true', :new => true})
       zfeed.sanitize_entries!
       zfeed.entries.each do | zentry |
-        entry = Entry.where({url: zentry.url}).find_and_modify({ '$set' => {
-                                                                   title: zentry.title,
-                                                                   author: zentry.author,
-                                                                   summary: zentry.summary,
-                                                                   content: zentry.content,
-                                                                 },
-                                                                 '$inc'  => {reads: 1}},
-                                                               {'upsert' => 'true', :new => true})
-        puts entry.url
+        entry = feed.entries.find_or_create_by(
+                                               url: zentry.url,
+                                               title: zentry.title,
+                                               author: zentry.author,
+                                               summary: zentry.summary,
+                                               content: zentry.content,
+                                               )
         entry.save
-        feed.entries.find_or_create_by(url: entry.url)
       end
       feed.save!
     end

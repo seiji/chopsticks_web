@@ -30,8 +30,10 @@ describe FeedJob do
     it 'should perform feedjob' do
       feed_url = 'http://blog.seiji.me/atom.xml'
       VCR.use_cassette 'jobs/feed_job/response' do
-      FeedJob.perform(feed_url)
-        Feed.where(feed_url: feed_url).count.should == 1
+        FeedJob.perform(feed_url)
+        feeds = Feed.where(feed_url: feed_url)
+        feeds.count.should == 1
+        feeds.first.entries.count.should == 20
       end
     end
   end                           # #perform

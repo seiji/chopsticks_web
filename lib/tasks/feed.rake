@@ -24,8 +24,12 @@ namespace :feed do
 
   desc "List all feeds"
   task :list => :environment do
+    puts "Show your feed list."
     Feed.each do |feed|
-      puts feed
+      puts "#{feed.title} - #{feed.feed_url}"
+      feed.entries.each do |entry|
+        puts "  #{entry.title} - #{feed.url}"
+      end
     end
   end
 

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+
 gem "foreman"
 gem "resque"
 gem 'bson', '~> 1.8.3'
@@ -19,12 +20,14 @@ gem 'json', '~> 1.7.7'
 
 group :development do
   gem 'guard'
+  gem 'guard-pow'
   gem 'guard-livereload'
   gem 'rb-fsevent'
 end
 
 group :test do
   gem 'rspec'
+  gem "rack-test", require: "rack/test"
   gem 'simplecov'
   gem 'mongoid-rspec'
   gem 'database_cleaner'

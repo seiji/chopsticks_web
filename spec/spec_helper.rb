@@ -4,12 +4,14 @@ require 'rspec'
 require 'database_cleaner'
 require "mongoid-rspec"
 require 'simplecov'
+#require 'rack/test'
 
 require File.expand_path("../../config/environment", __FILE__)
 
 RSpec.configure do |config|
   config.include Mongoid::Matchers
-
+  config.include Rack::Test::Methods
+  
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
