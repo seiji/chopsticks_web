@@ -12,8 +12,6 @@ require 'coveralls'
 
 require File.expand_path("../../config/environment", __FILE__)
 
-Coveralls.wear!
-
 RSpec.configure do |config|
   config.include Mongoid::Matchers
   config.include Rack::Test::Methods
@@ -39,11 +37,13 @@ VCR.configure do |config|
 end
 
 SimpleCov.start do
+  puts 'simplecov start'
   add_group "app", "/app"
   add_filter "/spec/"
   add_filter "/vendor/bundle/"
 end if ENV["COVERAGE"]
 
+Coveralls.wear!
 
 # vcr does not support for Curl::Multi
 module Feedzirra

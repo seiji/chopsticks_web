@@ -15,11 +15,6 @@ module Flot
     before do
       content_type :json
     end
-
-    get '/' do
-      haml :"index"
-    end
-    
   end
 end
 

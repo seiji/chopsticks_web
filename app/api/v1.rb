@@ -1,3 +1,6 @@
+require "models/user"
+require "models/feed"
+
 module Flot
   class API < Sinatra::Base
     register Sinatra::Namespace

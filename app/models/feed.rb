@@ -44,14 +44,16 @@ class Feed
     end
 
     def add_async(feed_url, user_id)
-      puts "Enqueue #{feed_url}"
-      
       Resque.enqueue(FeedJob, feed_url, user_id)
     end
   end
 
   def entry(entry_id)
     Entry.find(entry_id)
+  end
+
+  def reload
+
   end
 end
 

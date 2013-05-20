@@ -5,7 +5,9 @@ require 'bundler'
 Bundler.require
 
 require File.expand_path(File.join(*%w[ config environment ]), File.dirname(__FILE__))
+require "www"
 require 'api'
+
 
 map '/assets' do
   environment = Sprockets::Environment.new
@@ -14,5 +16,11 @@ map '/assets' do
 end
 
 map '/' do
+  run Flot::WWW
+end
+
+map '/api' do
   run Flot::API
 end
+
+
