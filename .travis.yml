@@ -8,7 +8,7 @@ notifications:
   email: false
 irc:
   channels:
-    - "irc.freenode.org#seijit"
+    - "chat.freenode.net#seijit"
   template:
     - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
     - "Change view : %{compare_url}"
