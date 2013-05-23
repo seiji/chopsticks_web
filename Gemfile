@@ -19,6 +19,9 @@ gem 'whenever', '0.7.3'
 gem 'json', '~> 1.7.7'
 
 group :development do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'capistrano_colors'
   gem 'guard'
   gem 'guard-pow'
   gem 'guard-livereload'
