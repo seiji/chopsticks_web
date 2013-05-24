@@ -26,10 +26,11 @@ role :app, host
 
 set :rack_env, :production
 
+
+set :deploy_to, "/var/www/#{application}"
 set :current_path, "#{deploy_to}/current"
 set :shared_path, "#{deploy_to}/shared"
 
-set :deploy_to, "/var/www/#{application}"
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
