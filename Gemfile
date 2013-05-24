@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sinatra', require:'sinatra/base'
 gem 'sinatra-namespace'
+gem 'unicorn'
 gem "foreman"
 gem "resque"
 gem 'bson', '~> 1.8.3'
