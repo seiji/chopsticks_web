@@ -8,12 +8,12 @@ module Flot
       forwarded_host = env['HTTP_X_FORWARDED_HOST']
       forwarded_host.blank? ? "#{scheme}://#{local_host}" : "#{scheme}://#{forwarded_host}"
     end
+
     class SafeFailureEndpoint < OmniAuth::FailureEndpoint
       def call
         redirect_to_failure
       end
     end
-
     OmniAuth.config.on_failure = SafeFailureEndpoint
     
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
@@ -37,8 +37,9 @@ module Flot
     end
 
     get '/auth/:name/callback' do
-      @auth = request.env['omniauth.auth']
-       haml :"index2"
+      env['omniauth.auth']
+      # @auth = request.env['omniauth.auth']
+      #  haml :"index2"
     end
   end
 end
