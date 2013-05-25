@@ -26,9 +26,7 @@ module Flot
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret'],
       {
 #        :scope => 'http://www.google.com/reader/api'
-        :scope => ['http://www.google.com/reader/api/*',
-                   'http://www.google.com/reader/atom/feed/*',
-                   'http://www.google.com/reader/subscriptions/export']
+        :scope => 'http://www.google.com/reader/api/*,http://www.google.com/reader/atom/feed/*,http://www.google.com/reader/subscriptions/export'
       }
     end
 
