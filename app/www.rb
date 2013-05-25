@@ -15,7 +15,7 @@ module Flot
       response.write env['omniauth.error'].inspect
       response.finish
     end
-
+    
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
