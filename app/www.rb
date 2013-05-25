@@ -5,7 +5,8 @@ module Flot
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
 #    OmniAuth.config.logger = Rack::Logger
-
+    # move config
+    OmniAuth.config.full_host = "http://flot.in"
     use OmniAuth::Builder do
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret'],
       {
