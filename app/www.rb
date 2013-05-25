@@ -1,3 +1,13 @@
+class Hash
+  def to_html
+    [
+     '<ul>',
+     map { |k, v| ["<li><strong>#{k}</strong>", v.respond_to?(:to_html) ? v.to_html : "<span>#{v}</span></li>"] },
+     '</ul>'
+    ].join
+  end
+end
+
 module Flot
   class WWW < Sinatra::Base
     enable :sessions, :logging
@@ -19,13 +29,10 @@ module Flot
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
-#    OmniAuth.config.logger = Rack::Logger
-    # move config
-
     use OmniAuth::Builder do
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret'],
       {
-        :scope => 'userinfo.email,userinfo.profile,plus.me,http://www.google.com/reader/api'
+        :scope => 'userinfo.profile,http://www.google.com/reader/api'
       }
     end
 
@@ -38,8 +45,8 @@ module Flot
 
     get '/auth/:name/callback' do
       env['omniauth.auth']
-      # @auth = request.env['omniauth.auth']
-      #  haml :"index2"
+      @auth = request.env['omniauth.auth'].to_html
+       haml :"index2"
     end
   end
 end
