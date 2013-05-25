@@ -23,8 +23,7 @@ module Flot
 
     get '/auth/:name/callback' do
       @auth = request.env['omniauth.auth']
-      
-      haml :index2
+       haml :"index2"
     end
   end
 end
