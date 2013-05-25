@@ -9,7 +9,6 @@ module Flot
     use OmniAuth::Builder do
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret'],
       {
-        :access_type => 'offline',
         :scope => 'http://www.google.com/reader/api'
       }
     end
