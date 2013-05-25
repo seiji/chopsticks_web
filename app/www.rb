@@ -4,7 +4,7 @@ module Flot
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
-    #OmniAuth.config.logger = Rails.logger
+    OmniAuth.config.logger = Rack::Logger
 
     use OmniAuth::Builder do
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret'],
@@ -23,6 +23,7 @@ module Flot
 
     get '/auth/:name/callback' do
       @auth = request.env['omniauth.auth']
+      
       haml :index2
     end
   end
