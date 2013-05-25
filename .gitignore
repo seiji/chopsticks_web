@@ -5,6 +5,7 @@
 InstalledFiles
 _yardoc
 coverage
+config/omniauth.yml
 doc/
 lib/bundler/man
 pkg

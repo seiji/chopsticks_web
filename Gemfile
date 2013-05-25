@@ -3,16 +3,16 @@ source 'https://rubygems.org'
 gem 'sinatra', require:'sinatra/base'
 gem 'sinatra-namespace'
 gem 'unicorn'
-gem "foreman"
-gem "resque"
+gem 'foreman'
+gem 'resque'
 gem 'bson', '~> 1.8.3'
 gem 'bson_ext', '~> 1.8.3'
 gem "mongo"
 gem 'mongoid', '~> 3.1.2'
 # fail if use in rubygems
-gem "feedzirra", git: "https://github.com/pauldix/feedzirra.git"
+gem 'feedzirra', git: "https://github.com/pauldix/feedzirra.git"
 gem 'home_run', :require=>'date'
-
+gem 'omniauth-google-oauth2'
 gem 'haml'
 gem 'coffee-script'
 gem 'sprockets', '~> 2.0'
@@ -31,6 +31,7 @@ end
 
 group :test do
   gem 'rspec'
+  gem 'factory_girl'
   gem 'simplecov'
   gem 'mongoid-rspec'
   gem 'database_cleaner'

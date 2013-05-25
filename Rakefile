@@ -22,3 +22,4 @@ desc "Alias for resque:work (To run workers on Heroku)"
 task "jobs:work" => "resque:work"
 
 Dir.glob('lib/tasks/**/*.rake').each { |r| load r }
+
