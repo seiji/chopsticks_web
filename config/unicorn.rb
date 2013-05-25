@@ -21,7 +21,7 @@ preload_app true
 # make sure that Bundler finds the Gemfile
 before_exec do |server|
   ENV['BUNDLE_GEMFILE'] = "#{rails_root}/Gemfile"
-  ENV['BSON_EXT_DISABLED'] = false
+  ENV['BSON_EXT_DISABLED'] = true
 end
 
 before_fork do |server, worker|
