@@ -2,7 +2,7 @@ module Flot
   class WWW < Sinatra::Base
     enable :sessions, :logging
 
-    OMNIAUTH_YAML = File.join(settings.root, '..', 'config', 'omniauth.yml')
+    OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
     #OmniAuth.config.logger = Rails.logger

@@ -13,6 +13,7 @@ set :group, user
 set :runner, user
 
 set :deploy_via, :remote_cache
+set :git_enable_submodules, 1
 
 set :host, "#{user}@flot.in"
 role :web, host
@@ -32,6 +33,9 @@ set :shared_path, "#{deploy_to}/shared"
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "#{current_path}/Gemfile"
+end
 
 # Unicorn control tasks
 namespace :deploy do
