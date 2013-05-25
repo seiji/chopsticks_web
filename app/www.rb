@@ -1,7 +1,6 @@
 module Flot
   class WWW < Sinatra::Base
     enable :sessions, :logging
-
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
@@ -9,6 +8,8 @@ module Flot
 
     use OmniAuth::Builder do
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret']
+      :access_type => 'offline',
+      :scope => 'http://www.google.com/reader/ap'
     end
 
     set :public_folder, "public"

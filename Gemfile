@@ -13,6 +13,8 @@ gem 'mongoid', '~> 3.1.2'
 gem 'feedzirra', git: "https://github.com/pauldix/feedzirra.git"
 gem 'home_run', :require=>'date'
 gem 'omniauth-google-oauth2'
+
+
 gem 'haml'
 gem 'coffee-script'
 gem 'sprockets', '~> 2.0'
