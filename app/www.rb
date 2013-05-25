@@ -8,14 +8,18 @@ module Flot
       forwarded_host = env['HTTP_X_FORWARDED_HOST']
       forwarded_host.blank? ? "#{scheme}://#{local_host}" : "#{scheme}://#{forwarded_host}"
     end
-    
-    OmniAuth.on_failure do |env|
-      [200, {}, [env['omniauth.error'].inspect]]
+
+    class SafeFailureEndpoint < OmniAuth::FailureEndpoint
+      def call
+        [200, {}, [env['omniauth.error'].inspect]]
+      end
     end
-    
+
+    OmniAuth.config.on_failure = SafeFailureEndpoint
+
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
-    
+
 #    OmniAuth.config.logger = Rack::Logger
     # move config
     OmniAuth.config.full_host = "http://flot.in"
