@@ -8,6 +8,13 @@ module Flot
       forwarded_host = env['HTTP_X_FORWARDED_HOST']
       forwarded_host.blank? ? "#{scheme}://#{local_host}" : "#{scheme}://#{forwarded_host}"
     end
+    class SafeFailureEndpoint < OmniAuth::FailureEndpoint
+      def call
+        redirect_to_failure
+      end
+    end
+
+    OmniAuth.config.on_failure = SafeFailureEndpoint
     
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
