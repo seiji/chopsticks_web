@@ -15,7 +15,7 @@ module Flot
     
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
-
+    
 #    OmniAuth.config.logger = Rack::Logger
     # move config
     OmniAuth.config.full_host = "http://flot.in"
