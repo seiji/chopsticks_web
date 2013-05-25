@@ -4,7 +4,7 @@ module Flot
     OMNIAUTH_YAML = File.join(settings.root, '..', 'private', 'config',  'omniauth.yml')
     OMNIAUTH_CONFIG = YAML.load_file(OMNIAUTH_YAML)["#{settings.environment}"]
 
-    OmniAuth.config.logger = Rack::Logger
+#    OmniAuth.config.logger = Rack::Logger
 
     use OmniAuth::Builder do
       provider :google_oauth2, OMNIAUTH_CONFIG['google']['key'], OMNIAUTH_CONFIG['google']['secret'],
