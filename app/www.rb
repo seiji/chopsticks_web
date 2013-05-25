@@ -11,7 +11,7 @@ module Flot
     
     OmniAuth.config.on_failure = Proc.new do |env|
       message_key = env['omniauth.error.type']
-      Rack::Response.new
+      response = Rack::Response.new
       response.write env['omniauth.error'].inspect
       response.finish
     end
