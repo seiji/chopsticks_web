@@ -42,12 +42,14 @@ module Flot
     set :views, "app/views"
 
     set :sprockets, Sprockets::Environment.new
+
     Sprockets::Helpers.configure do |config|
       config.environment = sprockets
       config.prefix = '/assets'
       config.digest = true
       sprockets.append_path 'app/assets/javascripts'
       sprockets.append_path 'app/assets/stylesheets'
+
     end
     helpers Sprockets::Helpers
 
@@ -63,8 +65,14 @@ module Flot
     # end
 
     get '/home' do
+      @user = User.where(:name => 'seiji').first
       haml :home
     end
-
+    
+    get '/feed/:id' do |id|
+      @user = User.where(:name => 'seiji').first
+      @feed_id = id
+      haml :home
+    end
   end
 end
