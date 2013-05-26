@@ -9,17 +9,18 @@ gem 'bson', '~> 1.8.3'
 gem 'bson_ext', '~> 1.8.3'
 gem "mongo"
 gem 'mongoid', '~> 3.1.2'
-# fail if use in rubygems
-gem 'feedzirra', git: "https://github.com/pauldix/feedzirra.git"
+gem 'feedzirra', git: "https://github.com/pauldix/feedzirra.git" # fail if use in rubygems
 gem 'home_run', :require=>'date'
-gem 'omniauth-google-oauth2'
-
-
-gem 'haml'
-gem 'coffee-script'
-gem 'sprockets', '~> 2.0'
-gem 'whenever', '0.7.3'
 gem 'json', '~> 1.7.7'
+gem 'omniauth-google-oauth2'
+gem 'haml'
+gem "sass"
+gem 'coffee-script'
+
+gem 'sprockets', '~> 2.0'
+gem 'sprockets-helpers'
+
+gem 'whenever', '0.7.3'
 
 group :development do
   gem 'capistrano'

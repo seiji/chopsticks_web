@@ -8,11 +8,8 @@ require File.expand_path(File.join(*%w[ config environment ]), File.dirname(__FI
 require "www"
 require 'api'
 
-
 map '/assets' do
-  environment = Sprockets::Environment.new
-  environment.append_path 'app/assets/javascripts'
-  run environment
+  run Flot::WWW.sprockets
 end
 
 map '/' do

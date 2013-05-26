@@ -15,5 +15,6 @@ test/version_tmp
 tmp
 vendor
 log/*.log
-.powenv
 .coveralls.yml
+.powenv
+.sass-cache

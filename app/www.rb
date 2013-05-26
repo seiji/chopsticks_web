@@ -10,6 +10,8 @@ end
 
 module Flot
   class WWW < Sinatra::Base
+    register Sinatra::Namespace
+
     enable :sessions, :logging
 
     OmniAuth.config.full_host = lambda do |env|
@@ -39,6 +41,17 @@ module Flot
     set :public_folder, "public"
     set :views, "app/views"
 
+    set :sprockets, Sprockets::Environment.new
+    Sprockets::Helpers.configure do |config|
+      config.environment = sprockets
+      config.prefix = '/assets'
+      config.digest = true
+      sprockets.append_path 'app/assets/javascripts'
+      sprockets.append_path 'app/assets/stylesheets'
+    end
+    helpers Sprockets::Helpers
+
+ 
     get '/' do
       haml :"index"
     end
@@ -48,5 +61,10 @@ module Flot
       @auth = request.env['omniauth.auth'].to_html
        haml :"index2"
     end
+
+    get '/home' do
+      haml :home
+    end
+
   end
 end

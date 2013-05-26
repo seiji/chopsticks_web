@@ -1,11 +1,5 @@
-!!! 5
-%html
-  %head
-    %title flot
-  %body
-    %h1 Hello flot
-    %p not only feed
-    %script{:type => "text/javascript", :src => "assets/application.js"}
-    %a{:href => '/auth/google_oauth2'} Sign in Google
-
-    
+%h1 index.haml
+= haml :"shared/form"
+%p not only feed
+%a{:href => '/auth/google_oauth2'} Sign in Google
+%script{:type => "text/javascript", :src => "assets/application.js"}
