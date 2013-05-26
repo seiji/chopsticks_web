@@ -8,10 +8,12 @@
     - if @keywords
       %meta(name="keywords" content=@keywords)
     %title= @title
-    %link{rel: 'stylesheet', type: 'text/css', href: stylesheet_path('application')}
-  %body
-    #container
-      = haml :header, :layout => false
+    -# %link{rel: 'stylesheet', type: 'text/css', href: stylesheet_path('application')}
+    %link{rel: 'stylesheet', type: 'text/css', href: 'bootstrap/css/bootstrap.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: 'bootstrap/css/bootstrap-responsive.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: stylesheet_path('flat-ui')}
+    %body
+      -# = haml :header, :layout => false
       = yield
       = haml :footer, :layout => false
-    %script{:src=>'javascripts/prefixfree-1.0.7.js'}
+      %script{:src=>'javascripts/prefixfree-1.0.7.js'}

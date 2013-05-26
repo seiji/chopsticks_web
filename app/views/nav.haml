@@ -1,0 +1,20 @@
+%div.navbar
+  %div.navbar-inner
+    %div.container
+      %button.btn.btn-navbar{:type=>'button', 'data-toggle'=>'collapse', 'data-target'=>'#nav-collapse-01'}
+      %a.brand flot
+      %div#nav-collapse-01.nav-collapse.collapse
+        %ul.nav
+          %li.active
+            %a{:href => '#'}Products
+          %li
+            %a{:href => '#'}Features
+          %li
+            %a{:href => '#'}Pricing
+          %li
+            %a{:href => '#'}About
+          %form.navbar-search.form-search.pull-right{:action => '', :method => 'get'}
+            %div.input-append
+              %input.search-query.span2{:type=>'text', :name=>'search_text', :placeholder=>'Search'}
+              %button.btn.btn-large{:type=>'submit'}
+                %i.fui-search

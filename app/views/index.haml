@@ -1,5 +1,19 @@
-%h1 index.haml
-= haml :"shared/form"
-%p not only feed
-%a{:href => '/auth/google_oauth2'} Sign in Google
-%script{:type => "text/javascript", :src => "assets/application.js"}
+%h1 flot
+%p now developping
+%div.jumbotron
+  %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+  %div.demo-row.demo-social-buttons
+    %h3.demo-title Social Connects
+    %div.demo-col
+      %a.btn.btn-large.btn-social-googleplus{:href=>'auth/google_oauth2'}
+        %i.fui-googleplus
+        Connect with Google
+      %a.btn.btn-large.btn-social-facebook{:href=>'auth/facebook'}
+        %i.fui-facebook
+        Connect with Facebook
+      %a.btn.btn-large.btn-social-twitter{:href=>'auth/twitter'}
+        %i.fui-twitter
+        Connect with Twitter
+
+    -# = haml :"shared/form"
+-# %script{:type => "text/javascript", :src => "assets/application.js"}

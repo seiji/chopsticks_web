@@ -56,11 +56,11 @@ module Flot
       haml :"index"
     end
 
-    get '/auth/:name/callback' do
-      env['omniauth.auth']
-      @auth = request.env['omniauth.auth'].to_html
-       haml :"index2"
-    end
+    # get '/auth/:name/callback' do
+    #   env['omniauth.auth']
+    #   @auth = request.env['omniauth.auth'].to_html
+    #    haml :"index2"
+    # end
 
     get '/home' do
       haml :home
