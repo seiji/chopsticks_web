@@ -5,15 +5,21 @@
     %ul.nav.nav-list.nav-list-vivid
       %li.nav-header Feeds
       %li.active
-        %a{:href=>'#'}
+        %a{:href=>'/home'}
           All
           %span.nav-counter 19
 
       - @user.feeds.each do |item|
         %li
-          %a{:href=>"feed/#{item.id}"}
-            #{item.title}
+          -# - if #{feed_id} == #{item.id}
+          -#   %a.active{:href=>"/feed/#{item.id}"}
+          -#     #{item.title} "#{feed_id}"
+          -#     %span.nav-counter 200
+          -# - else
+          %a{:href=>"/feed/#{item.id}"}
             %span.nav-counter 200
+            #{item.title}
+
       %li.divider
       %li.nav-header Facebook
       %li
@@ -39,7 +45,7 @@
       %h3 The Vatican transitions to a
       %span.text-note Image
       %p Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. <strong>Donec ullamcorper</strong> nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-      %img.img-rounded{:src=>'images/exaple-image.jpg'}
+      %img.img-rounded{:src=>'/images/exaple-image.jpg'}
       %p.img-comment
         %strong Note:
         gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.

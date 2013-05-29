@@ -29,9 +29,6 @@ namespace :feed do
       feed_url = feed['id'].sub(/^feed\//, '')
       Resque.enqueue(FeedJob, feed_url, user.id)
     end
-    # FeedImporter.import(file) do |f|
-    #   puts %Q{Importing "#{f.title}"}
-    # end
     file.close
   end
 

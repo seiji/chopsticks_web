@@ -145,6 +145,8 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    rack-session-redis (0.0.3)
+      redis (>= 2.0.0)
     rack-test (0.6.2)
       rack (>= 1.0)
     raindrops (0.11.0)
@@ -179,6 +181,10 @@ GEM
     sass (3.2.9)
     sax-machine (0.2.0.rc1)
       nokogiri (~> 1.5.2)
+    serverspec (0.4.12)
+      highline
+      net-ssh
+      rspec (~> 2.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -246,12 +252,14 @@ DEPENDENCIES
   mongoid (~> 3.1.2)
   mongoid-rspec
   omniauth-google-oauth2
+  rack-session-redis
   rack-test
   rb-fsevent
   resque
   resque_spec
   rspec
   sass
+  serverspec
   simplecov
   sinatra
   sinatra-namespace

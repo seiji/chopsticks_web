@@ -5,6 +5,7 @@ require 'bundler'
 Bundler.require
 
 require File.expand_path(File.join(*%w[ config environment ]), File.dirname(__FILE__))
+
 require "www"
 require 'api'
 

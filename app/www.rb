@@ -8,11 +8,14 @@ class Hash
   end
 end
 
+require "auth"
+
 module Flot
   class WWW < Sinatra::Base
-    register Sinatra::Namespace
+    enable :sessions
 
-    enable :sessions, :logging
+    register Sinatra::Namespace
+    register Sinatra::Auth
 
     OmniAuth.config.full_host = lambda do |env|
       scheme         = env['rack.url_scheme']
@@ -20,7 +23,6 @@ module Flot
       forwarded_host = env['HTTP_X_FORWARDED_HOST']
       forwarded_host.blank? ? "#{scheme}://#{local_host}" : "#{scheme}://#{forwarded_host}"
     end
-    
     OmniAuth.config.on_failure = Proc.new do |env|
       message_key = env['omniauth.error.type']
       response = Rack::Response.new
@@ -65,7 +67,11 @@ module Flot
     # end
 
     get '/home' do
-      @user = User.where(:name => 'seiji').first
+      authorize!
+      name = session[:authorized]
+      @user = User.where(:name => name).first
+      @feed_id = 0
+      redirect '/' unless @user
       haml :home
     end
     

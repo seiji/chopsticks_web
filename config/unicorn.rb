@@ -1,14 +1,29 @@
 # define paths and filenames
-deploy_to = "/var/www/flot.in"
-rails_root = "#{deploy_to}/current"
-pid_file = "#{deploy_to}/shared/pids/unicorn.pid"
-socket_file= "#{deploy_to}/shared/unicorn.sock"
-log_file = "#{rails_root}/log/unicorn.log"
-err_log = "#{rails_root}/log/unicorn_error.log"
+env = ENV['RACK_ENV'] || 'production'
+
+if env == 'production'
+  deploy_to = "/var/www/flot.in"
+  rack_root = "#{deploy_to}/current"
+  pid_file = "#{deploy_to}/shared/pids/unicorn.pid"
+  socket_file= "#{deploy_to}/shared/unicorn.sock"
+  log_file = "#{deploy_to}/log/unicorn.log"
+  err_log  = "#{deploy_to}/log/unicorn_error.log"
+
+  worker_processes 2
+
+else
+  rack_root   = `pwd`.gsub("\n", "")
+  pid_file    = "#{rack_root}/log/unicorn.pid"
+  socket_file = "#{rack_root}/log/unicorn.sock"
+  log_file    = "#{rack_root}/log/unicorn.log"
+  err_log     = "#{rack_root}/log/unicorn_error.log"  
+
+  worker_processes 1
+
+end
+
 old_pid = pid_file + '.oldbin'
 
-timeout 30
-worker_processes 2 # increase or decrease
 listen socket_file, :backlog => 1024
 
 pid pid_file
@@ -20,7 +35,7 @@ preload_app true
 
 # make sure that Bundler finds the Gemfile
 before_exec do |server|
-  ENV['BUNDLE_GEMFILE'] = "#{rails_root}/Gemfile"
+  ENV['BUNDLE_GEMFILE'] = "#{rack_root}/Gemfile"
 end
 
 before_fork do |server, worker|

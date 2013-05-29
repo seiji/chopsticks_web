@@ -14,9 +14,9 @@ gem 'home_run', :require=>'date'
 gem 'json', '~> 1.7.7'
 gem 'omniauth-google-oauth2'
 gem 'haml'
-gem "sass"
 gem 'coffee-script'
-
+gem 'rack-session-redis'
+gem "sass"
 gem 'sprockets', '~> 2.0'
 gem 'sprockets-helpers'
 
@@ -43,4 +43,5 @@ group :test do
   gem 'vcr'
   gem 'coveralls', require: false
   gem "rack-test", require:"rack/test"
+  gem 'serverspec'
 end
