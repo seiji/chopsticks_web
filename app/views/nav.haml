@@ -18,3 +18,6 @@
               %input.search-query.span2{:type=>'text', :name=>'search_text', :placeholder=>'Search'}
               %button.btn.btn-large{:type=>'submit'}
                 %i.fui-search
+          - if defined? @user
+            %li
+              %a Hello, #{@user.name}

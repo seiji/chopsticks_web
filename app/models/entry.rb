@@ -20,5 +20,11 @@ class Entry
 
   belongs_to :feed, touch: true
   index({ url: 1 }, { unique: true,  background: true })
+
+  def body
+    text = self.content || self.summary
+    text.gsub!(/src=([\'|\"]{1})\//i, "src=\\1#{feed.url}/")
+    text
+  end
 end
 

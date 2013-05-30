@@ -1,0 +1,50 @@
+%ul.nav.nav-list.nav-list-vivid
+  %li.nav-header Feeds
+  - if defined? @feed_id
+    %li
+      %a{:href=>'/home'}
+        All
+        %span.nav-counter 19
+  - else 
+    %li.active
+      %a{:href=>'/home'}
+        All
+        %span.nav-counter 19
+  - @user.feeds.each do |item|
+    - if defined? @feed_id
+      - if item.id.to_s == @feed_id
+        %li.active
+          %a{:href=>"/feed/#{item.id}"}
+            %span.nav-counter 200
+            #{item.title}
+      - else
+        %li
+          %a{:href=>"/feed/#{item.id}"}
+            %span.nav-counter 200
+            #{item.title}
+    - else
+      %li
+        %a{:href=>"/feed/#{item.id}"}
+          %span.nav-counter 200
+          #{item.title}
+
+  %li.divider
+  %li.nav-header Facebook
+  %li
+    %a{:href=>'#'}
+      UX Design
+      %span.nav-counter 19
+  %li
+    %a{:href=>'#'}
+      Art
+      %span.nav-counter 19
+  %li.nav-header Twitter
+  %li
+    %a{:href=>'#'}
+      UX Photography
+      %span.nav-counter 19
+  %li
+    %a{:href=>'#'}
+      Art
+      %span.nav-counter 19
+

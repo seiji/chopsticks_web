@@ -70,15 +70,16 @@ module Flot
       authorize!
       name = session[:authorized]
       @user = User.where(:name => name).first
-      @feed_id = 0
       redirect '/' unless @user
       haml :home
     end
     
     get '/feed/:id' do |id|
-      @user = User.where(:name => 'seiji').first
+      name = session[:authorized] || 'seiji'
+      @user = User.where(:name => name).first
       @feed_id = id
-      haml :home
+      @feed = Feed.find(@feed_id)
+      haml :feed
     end
   end
 end
