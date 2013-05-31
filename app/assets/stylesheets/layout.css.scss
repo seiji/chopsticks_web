@@ -17,10 +17,8 @@
     
     h1 {
         font-size: 28px;
-        font-weight: 500;
         text-rendering: optimizeLegibility;
         line-height: 1.15em;
-        text-transform: none;
         clear: both;
         margin: 1em 0 1em 0;
         height: auto;
@@ -28,24 +26,33 @@
 
     h2 {
         font-size: 24px;
-        font-weight: 500;
         text-rendering: optimizeLegibility;
         line-height: 1.15em;
-        text-transform: none;
         clear: both;
         margin: 1em 0 1em 0;
         height: auto;
     }
     h3 {
         font-size: 20px;
-        font-weight: 500;
         text-rendering: optimizeLegibility;
         line-height: 1.15em;
-        text-transform: none;
         clear: both;
         margin: 1em 0 1em 0;
         height: auto;
     }
+    h5 {
+        font-size: 16px;
+        text-rendering: optimizeLegibility;
+        line-height: 1.15em;
+        clear: both;
+        margin: 1em 0 1em 0;
+        height: auto;
+    }
+
+    .header {
+        padding-bottom: 3em 
+    }
+    
     p {
         font-size: 14px;
     }

@@ -1,9 +1,11 @@
 - if defined? @feed
   #{@feed.title}
-  - @feed.entries.each do |entry|
+  - @feed.entries.each_with_index do |entry, i|
+    - break if i > 0
     %div.entry-body
-      %h6
-        %a{:href=>"#{entry.url}"} #{entry.title}
+      %div.header
+        %h6
+          %a{:href=>"#{entry.url}"} #{entry.title}
       #{entry.body}
       
 - else

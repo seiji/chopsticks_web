@@ -12,8 +12,12 @@
     %link{rel: 'stylesheet', type: 'text/css', href: '/bootstrap/css/bootstrap-responsive.css'}
     %link{rel: 'stylesheet', type: 'text/css', href: stylesheet_path('flat-ui')}
     %link{rel: 'stylesheet', type: 'text/css', href: stylesheet_path('application')}
-    %body
-      -# = haml :header, :layout => false
-      = yield
-      = haml :footer, :layout => false
-      %script{:src=>'javascripts/prefixfree-1.0.7.js'}
+    %script{:src=>'/javascripts/jquery-1.8.3.min.js'}
+    %script{:src=>'/javascripts/jquery-ui-1.10.3.custom.min.js'}
+    %script{:src=>'/javascripts/prefixfree-1.0.7.js'}
+    %script{src: javascript_path('application')}
+  %body
+    -# = haml :header, :layout => false
+    = yield
+    = haml :footer, :layout => false
+    = haml :help, :layout => false
