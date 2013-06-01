@@ -1,0 +1,7 @@
+%ul.nav.nav-list
+  %li.nav-header Header
+  - @feed.entries.each_with_index do |entry, i|
+    - break if i > 0
+    - entry.headers.each_with_index do |header, i|
+      %li
+        %a{href: "\##{i+1}"} #{header}

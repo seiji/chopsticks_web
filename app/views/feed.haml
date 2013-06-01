@@ -1,7 +1,10 @@
 = haml :nav, :layout => false
-%div.demo-row
-  %div.demo-col
+%div.container
+  %div.span3
     = haml :"shared/nav_list_feed"
-  %div.demo-col.typography-row.entryBody
+  %div.span6
     = haml :"shared/content"
+  %div#content_headers.span2
+    %div#box
+      = haml :"shared/content_headers"
       

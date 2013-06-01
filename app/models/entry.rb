@@ -22,9 +22,37 @@ class Entry
   index({ url: 1 }, { unique: true,  background: true })
 
   def body
+    return @body if @body
     text = self.content || self.summary
     text.gsub!(/src=([\'|\"]{1})\//i, "src=\\1#{feed.url}/")
+    tag = 0
+    text.gsub!(/<h[1-6]>.*?<\/h[1-6]>/i) do | matched |
+      "<a name='#{tag += 1}'>#{matched}</a>"
+    end
+    @body = text
     text
+  end
+
+  def headers
+    return @headers if @headers
+    array = extract_headers
+    @headers = array
+  end
+
+  private
+  def extract_headers
+    array = []
+    (1..6).each do |i|
+      self.body.scan(/<h#{i}>(.*?)<\/h#{i}>/im) do |matched|
+        matched.each do |s|
+          if block_given? 
+            yield(s, i)
+          end
+          array << "<span class='h#{i}'>#{s}</span>"
+        end
+      end
+    end
+    array
   end
 end
 
