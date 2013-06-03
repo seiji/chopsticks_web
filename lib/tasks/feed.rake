@@ -36,10 +36,12 @@ namespace :feed do
   task :list => :environment do
     puts "Show your feed list."
     Feed.each do |feed|
-      puts "#{feed.title} - #{feed.feed_url}"
-      feed.entries.each do |entry|
-        puts "  #{entry.title} - #{feed.url}"
-      end
+#      puts "#{feed.title} - #{feed.feed_url}"
+      print "\e[32m#{feed.title}\e[0m"
+      print "[\e[36m#{feed.feed_url}\e[0m]\n"
+      # feed.entries.each do |entry|
+      #   puts "  #{entry.title} - #{feed.url}"
+      # end
     end
   end
 
@@ -51,9 +53,15 @@ namespace :feed do
   desc "Add a feed now"
   task :addf, [:feed_url] => :environment do |t, args|
     user = User.where(:name => 'seiji').first
-
     FeedJob.perform(args[:feed_url], user.id)
   end
 
+  desc "Reload a feed"
+  task :reload, [:feed_url] => :environment do |t, args|
+    feed = Feed.where(:feed_url => args[:feed_url]).first
+    if feed
+      FeedJob.reload(feed)
+    end
+  end
 end
 
