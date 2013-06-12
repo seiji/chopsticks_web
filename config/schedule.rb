@@ -1,6 +1,6 @@
 set :output, {:error => 'log/cron_error.log', :standard => 'log/cron.log'}
 
-every 1.minutes do
+every 1.minutes, :roles => [:db] do
   command "date >/tmp/whenever"
 end
 
