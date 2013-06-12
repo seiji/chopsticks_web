@@ -1,5 +1,6 @@
 require "bundler/capistrano"
 set :whenever_command, "bundle exec whenever"
+set :whenever_roles, { :db }
 require "whenever/capistrano"
 
 set :application, "flot.in"
