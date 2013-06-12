@@ -1,4 +1,6 @@
 require "bundler/capistrano"
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 
 set :application, "flot.in"
 set :repository, "git://github.com/seiji/flot.git"
@@ -18,7 +20,7 @@ set :git_enable_submodules, 1
 set :host, "#{user}@flot.in"
 role :web, host
 role :app, host
-
+role :db, host
 
 # role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
 # role :db,  "your slave db-server here"
@@ -33,10 +35,8 @@ set :shared_path, "#{deploy_to}/shared"
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
 
-
 # Unicorn control tasks
 namespace :deploy do
-
   task :restart do
     run "if [ -f #{unicorn_pid} ]; then kill -USR2 `cat #{unicorn_pid}`; else cd #{deploy_to}/current && bundle exec unicorn -c #{unicorn_conf} -E #{rack_env} -D; fi"
   end
