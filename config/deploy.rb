@@ -1,6 +1,5 @@
 require "bundler/capistrano"
 set :whenever_command, "bundle exec whenever"
-set :whenever_roles, { :db }
 require "whenever/capistrano"
 
 set :application, "flot.in"
@@ -22,6 +21,8 @@ set :host, "#{user}@flot.in"
 role :web, host
 role :app, host
 role :db, host
+
+set :whenever_roles, :db
 
 # role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
 # role :db,  "your slave db-server here"
