@@ -268,4 +268,4 @@ DEPENDENCIES
   unicorn
   vcr
   webmock (~> 1.9.0)
-  whenever
+  whenever (= 0.7.3)

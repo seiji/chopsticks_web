@@ -6,8 +6,8 @@ if env == 'production'
   rack_root = "#{deploy_to}/current"
   pid_file = "#{deploy_to}/shared/pids/unicorn.pid"
   socket_file= "#{deploy_to}/shared/unicorn.sock"
-  log_file = "#{deploy_to}/log/unicorn.log"
-  err_log  = "#{deploy_to}/log/unicorn_error.log"
+  log_file = "#{deploy_to}/shared/log/unicorn.log"
+  err_log  = "#{deploy_to}/shared/log/unicorn_error.log"
 
   worker_processes 2
 

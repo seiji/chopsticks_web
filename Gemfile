@@ -20,8 +20,7 @@ gem "sass"
 gem 'sprockets', '~> 2.0'
 gem 'sprockets-helpers'
 
-# gem 'whenever', '0.7.3', :require => false
-gem 'whenever'
+gem 'whenever', '0.7.3', :require => false
 
 group :development do
   gem 'capistrano'
