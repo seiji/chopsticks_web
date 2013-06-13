@@ -1,5 +1,6 @@
 env :PATH, ENV['PATH']
-set :output, {:error => 'log/cron_error.log', :standard => 'log/cron.log'}
+LOG_FOLDER="/var/www/flot.in/shared/log"
+set :output, {:error => "#{LOG_FOLDER}/cron_error.log", :standard => "#{LOG_FOLDER}/cron.log"}
 
 every 1.minutes do
   command "date >/tmp/whenever"
