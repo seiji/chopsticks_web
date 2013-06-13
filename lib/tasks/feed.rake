@@ -10,6 +10,7 @@ namespace :user do
     puts user.name
   end
 end
+
 namespace :feed do
   desc "Import feeds from OPML"
   task :import, [:file] => :environment do |t, args|
@@ -63,5 +64,7 @@ namespace :feed do
       FeedJob.reload(feed)
     end
   end
+
+  
 end
 
