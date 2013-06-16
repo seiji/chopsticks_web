@@ -1,0 +1,34 @@
+= haml :nav, :layout => false
+
+- column_names = ['title', 'published', '&nbsp;']
+
+%div.container
+  %ul.breadcrumb
+    %li
+      %a{:href => "/admin/feeds"} Feeds
+    %li.active
+      %a{:href => "#fakelink"}= @feed.title
+
+  %h3= @feed.title
+
+  %table.table.table-striped
+    %tr
+    - column_names.each do |name|
+      %th= name.camelize
+    - @feed.entries.each do |entry|
+      %tr{"data-href" => "#"}
+        %td
+          - if entry.url
+            %a{:href => entry.url}
+              = entry.title
+          - else
+            = entry.title
+        %td
+          - if entry.published
+            = entry.published.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+          - else
+            = entry.published
+        %td
+          %i.fui-check-inverted.text-primary
+            
+          

@@ -1,15 +1,17 @@
 = haml :nav, :layout => false
-%h3 Feeds
-
 - column_names = ['title', 'last_modified', 'entries', '&nbsp;']
 
-%div
+%div.container
+  %ul.breadcrumb
+    %li.active
+      %a{:href => "#fakelink"} Feeds
+      
   %table.table.table-striped
     %tr
     - column_names.each do |name|
       %th= name.camelize
     - @feeds.each do |feed|
-      %tr
+      %tr{"data-href" => "./feeds/#{CGI.escape(feed.feed_url)}"}
         %td
           - if feed.url
             %a{:href => feed.url}

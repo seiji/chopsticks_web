@@ -1,5 +1,3 @@
-require "models/feed"
-
 module Flot
   class Admin < Sinatra::Base
     enable :sessions
@@ -33,7 +31,18 @@ module Flot
       haml :"feeds"
     end
 
+    get '/feeds/:feed_url' do |feed_url|
+      @feed = Feed.where(:feed_url => feed_url).first
+      haml :"feed"
+    end
+
+    get '/entries' do
+      @entries = Entry.all.sort("published" =>  -1)
+      haml :"entries"
+    end
+
     get '/users' do
+      @users = User.all.sort("updated_at" =>  -1)
       haml :"users"
     end
   end

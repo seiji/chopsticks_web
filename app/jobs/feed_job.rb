@@ -76,13 +76,16 @@ class FeedJob
         entry_title = zentry.title
         entry_title.gsub!(/\n/, '')
         puts "- #{entry_title}"
-        entry = feed.entries.find_or_create_by(
-                                               url: zentry.url,
-                                               title: entry_title,
-                                               author: zentry.author,
-                                               summary: zentry.summary,
-                                               content: zentry.content,
-                                               )
+        published = zentry.published
+        attributes = {
+          url: zentry.url,
+          title: entry_title,
+          author: zentry.author,
+          summary: zentry.summary,
+          content: zentry.content,
+        }
+        attributes[:published] = published if published
+        entry = feed.entries.find_or_create_by(attributes)
         entry.save
       end
       feed.save!

@@ -19,8 +19,13 @@ table {
         td span {
             color: #777;
         }
+        font-weight:bold;
     }
-    
+    tbody tr.clickable:hover td {
+        background: #ecf2fa;
+        cursor: pointer;
+    }
+
     h1 {
         font-size: 28px;
         text-rendering: optimizeLegibility;

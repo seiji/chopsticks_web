@@ -10,6 +10,7 @@ module Descriptive
       field :feed_url, type: String
       field :etag, type: String
       field :subscriber_count, type: Integer
+      field :last_modified, type:DateTime 
       field :firstitem_msec, type:DateTime 
       validates_presence_of :title
       validates_presence_of :feed_url

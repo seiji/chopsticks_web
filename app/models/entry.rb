@@ -6,6 +6,7 @@ module Summary
         field :author, type: String
         field :summary, type: String
         field :content, type: String
+        field :published, type:DateTime 
         field :reads, type: Integer
         validates_presence_of :title
         validates_presence_of :url
@@ -20,6 +21,12 @@ class Entry
 
   belongs_to :feed, touch: true
   index({ url: 1 }, { unique: true,  background: true })
+
+  after_save do |document|
+    unless self.published
+      self.update_attribute(:published, self.updated_at)
+    end
+  end
 
   def body
     return @body if @body

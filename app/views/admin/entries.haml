@@ -1,0 +1,32 @@
+= haml :nav, :layout => false
+
+- column_names = ['title', 'published', 'updated_at','&nbsp;']
+
+%div.container
+  %ul.breadcrumb
+    %li.active
+      %a{:href => "/admin/feeds"} Entries
+
+  %table.table.table-striped
+    %tr
+    - column_names.each do |name|
+      %th= name.camelize
+    - @entries.entries.each do |entry|
+      %tr{"data-href" => "#"}
+        %td
+          - if entry.url
+            %a{:href => entry.url}
+              = entry.title
+          - else
+            = entry.title
+        %td{"nowrap" => ""}
+          - if entry.published
+            = entry.published.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+          - else
+            = entry.published
+        %td{"nowrap" => ""}
+          = entry.updated_at.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+        %td
+          %i.fui-check-inverted.text-primary
+            
+          
