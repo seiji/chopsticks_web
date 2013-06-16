@@ -1,0 +1,28 @@
+= haml :nav, :layout => false
+%h3 Feeds
+
+- column_names = ['title', 'last_modified', 'entries', '&nbsp;']
+
+%div
+  %table.table.table-striped
+    %tr
+    - column_names.each do |name|
+      %th= name.camelize
+    - @feeds.each do |feed|
+      %tr
+        %td
+          - if feed.url
+            %a{:href => feed.url}
+              = feed.title
+          - else
+            = feed.title
+          %span
+          [
+          = feed.feed_url
+          ]
+        %td= feed.last_modified.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+        %td= feed.entries.count
+        %td
+          %i.fui-check-inverted.text-primary
+            
+          

@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/mirakui/rack-contrib.git
+  revision: ca5d1b83cc3c0a45b73306fbf332e28d98a5e834
+  specs:
+    rack-contrib (1.0.1)
+      rack (>= 0.9.1)
+
+GIT
   remote: https://github.com/pauldix/feedzirra.git
   revision: 80cd35766e40ee3058db1c5c0c25448baeea4212
   specs:
@@ -178,6 +185,7 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
+    ruby-prof (0.13.0)
     sass (3.2.9)
     sax-machine (0.2.0.rc1)
       nokogiri (~> 1.5.2)
@@ -252,12 +260,14 @@ DEPENDENCIES
   mongoid (~> 3.1.2)
   mongoid-rspec
   omniauth-google-oauth2
+  rack-contrib!
   rack-session-redis
   rack-test
   rb-fsevent
   resque
   resque_spec
   rspec
+  ruby-prof
   sass
   serverspec
   simplecov

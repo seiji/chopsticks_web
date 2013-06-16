@@ -15,6 +15,7 @@ gem 'json', '~> 1.7.7'
 gem 'omniauth-google-oauth2'
 gem 'haml'
 gem 'coffee-script'
+gem 'rack-contrib', :git => "https://github.com/mirakui/rack-contrib.git"
 gem 'rack-session-redis'
 gem "sass"
 gem 'sprockets', '~> 2.0'
@@ -30,6 +31,7 @@ group :development do
   gem 'guard-pow'
   gem 'guard-livereload'
   gem 'rb-fsevent'
+  gem 'ruby-prof'
 end
 
 group :test do

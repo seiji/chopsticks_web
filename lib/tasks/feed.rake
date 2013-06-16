@@ -14,23 +14,27 @@ end
 namespace :feed do
   desc "Import feeds from OPML"
   task :import, [:file] => :environment do |t, args|
-    file = File.open(args[:file], 'r')
-    # FeedImporter.import(file) do |f|
-    #   puts %Q{Importing "#{f.title}"}
-    # end
-    file.close
+    File.open(args[:file], 'r') do |file|
+      # FeedImporter.import(file) do |f|
+      #   puts %Q{Importing "#{f.title}"}
+      # end
+    end
   end
 
   desc "Import feeds from JSON"
   task :import_json, [:file] => :environment do |t, args|
     user = User.where(:name => 'seiji').first
-    file = File.open(args[:file], 'r')
-    hash = JSON.parser.new(file.read).parse
-    hash['subscriptions'].each do |feed|
-      feed_url = feed['id'].sub(/^feed\//, '')
-      Resque.enqueue(FeedJob, feed_url, user.id)
+    return unless user
+
+    File.open(args[:file], 'r') do |file|
+      hash = JSON.parser.new(file.read).parse
+      feed_urls = hash['subscriptions'].map do |feed|
+        feed['id'].sub(/^feed\//, '')
+      end
+      FeedJob.perform(feed_urls, user.id)
+
+      # Resque.enqueue(FeedJob, feed_url, user.id)
     end
-    file.close
   end
 
   desc "List all feeds"
@@ -54,7 +58,9 @@ namespace :feed do
   desc "Add a feed now"
   task :addf, [:feed_url] => :environment do |t, args|
     user = User.where(:name => 'seiji').first
-    FeedJob.perform(args[:feed_url], user.id)
+    if user
+      FeedJob.perform(args[:feed_url], user.id)
+    end
   end
 
   desc "Reload a feed"
@@ -64,7 +70,5 @@ namespace :feed do
       FeedJob.reload(feed)
     end
   end
-
-  
 end
 

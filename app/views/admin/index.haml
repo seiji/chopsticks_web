@@ -1,0 +1,19 @@
+= haml :nav, :layout => false
+%p this display some stats
+%div.jumbotron
+  %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+  %div.demo-row.demo-social-buttons
+    %h3.demo-title Social Connects
+    %div.demo-col
+      -# %a.btn.btn-large.btn-social-googleplus{:href=>'auth/google_oauth2'}
+      %a.btn.btn-large.btn-social-googleplus{:href=>'/login'}
+        %i.fui-googleplus
+        Connect with Google
+      %a.disabled.btn.btn-large.btn-social-facebook{:href=>'auth/facebook'}
+        %i.fui-facebook
+        Connect with Facebook
+      %a.disabled.btn.btn-large.btn-social-twitter{:href=>'auth/twitter'}
+        %i.fui-twitter
+        Connect with Twitter
+
+-# %script{:type => "text/javascript", :src => "assets/application.js"}
