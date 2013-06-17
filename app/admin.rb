@@ -23,6 +23,7 @@ module Flot
     end
 
     get '/crawls' do
+      @crawls = Crawl.all.sort("created_at" => -1)
       haml :"crawls"
     end
 

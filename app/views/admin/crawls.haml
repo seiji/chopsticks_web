@@ -1,0 +1,29 @@
+= haml :nav, :layout => false
+
+- column_names = ['feed', 'status_code', 'created_at', 'has_new','&nbsp;']
+
+%div.container
+  %ul.breadcrumb
+    %li.active
+      %a{:href => "/admin/feeds"} Crawls
+
+  %table.table.table-striped
+    %tr
+    - column_names.each do |name|
+      %th= name.camelize
+    - @crawls.entries.each do |crawl|
+      %tr{"data-href" => "#"}
+        %td
+          = crawl.title
+          %br
+          = crawl.feed_url
+        %td
+          = crawl.status_code
+        %td{"nowrap" => ""}
+          = crawl.created_at.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+        %td
+          = crawl.has_new
+        %td
+          %i.fui-check-inverted.text-primary
+            
+          

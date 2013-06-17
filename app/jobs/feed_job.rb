@@ -2,6 +2,7 @@ require "feedzirra"
 require "models/feed"
 require "models/entry"
 require "models/user"
+require "models/crawl"
 
 class FeedJob
   @queue = :feed
@@ -50,7 +51,7 @@ class FeedJob
                                                                 },
                                                                 '$inc'  => {subscriber_count: 1}},
                                                               {'upsert' => 'true', :new => true})
-      update_entries(feed, zfeed)
+      has_new = update_entries?(feed, zfeed)
       if user_id
         user = User.find(user_id)
         if user and !user.feeds.where(feed_url: feed_url).first
@@ -58,6 +59,8 @@ class FeedJob
           user.save
         end
       end
+      write_crawl_log(url, 200, has_new, feed_title)
+
     end
 
     def on_failure_feed(url, response_code, response_header, response_body)
@@ -67,15 +70,15 @@ class FeedJob
       when 404
         # TODO: delete feed
       end
-      # TODO: write log to capped collection
+      write_crawl_log(url, response_code)
     end
     
-    def update_entries(feed, zfeed)
+    def update_entries?(feed, zfeed)
       zfeed.sanitize_entries!
+      has_new = false
       zfeed.entries.each do | zentry |
         entry_title = zentry.title
         entry_title.gsub!(/\n/, '')
-        puts "- #{entry_title}"
         published = zentry.published
         attributes = {
           url: zentry.url,
@@ -85,10 +88,27 @@ class FeedJob
           content: zentry.content,
         }
         attributes[:published] = published if published
-        entry = feed.entries.find_or_create_by(attributes)
+#        entry = feed.entries.find_or_create_by(attributes)
+        entry = feed.entries.find_or_initialize_by(attributes)
+        if entry.new_record
+          has_new = true
+          puts "- [NEW] #{entry_title}"
+        else
+          puts "-       #{entry_title}"
+        end
         entry.save
       end
       feed.save!
+      has_new
+    end
+
+    def write_crawl_log(url, status_code, has_new = false, title = nil)
+      Crawl.create!(
+                    title: title,
+                    feed_url: url,
+                    status_code: status_code,
+                    has_new: has_new
+                   )
     end
   end
 end
