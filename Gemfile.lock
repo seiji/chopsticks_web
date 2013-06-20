@@ -84,6 +84,8 @@ GEM
       multi_json (~> 1.7)
     guard-pow (1.0.0)
       guard (>= 1.1)
+    guard-unicorn (0.0.8)
+      guard (>= 1.1)
     haml (4.0.2)
       tilt
     hashie (2.0.5)
@@ -253,6 +255,7 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-pow
+  guard-unicorn
   haml
   home_run
   json (~> 1.7.7)

@@ -30,6 +30,7 @@ group :development do
   gem 'guard'
   gem 'guard-pow'
   gem 'guard-livereload'
+  gem 'guard-unicorn'
   gem 'rb-fsevent'
   gem 'ruby-prof'
 end

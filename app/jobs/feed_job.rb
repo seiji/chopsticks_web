@@ -34,7 +34,6 @@ class FeedJob
     private
     def on_success_feed(url, zfeed, user_id=nil)
       puts "Success: #{url}"
-      # TODO: write log to capped collection
       # 200(includes 304)
 
       feed_title = zfeed.title
@@ -76,6 +75,9 @@ class FeedJob
     def update_entries?(feed, zfeed)
       zfeed.sanitize_entries!
       has_new = false
+
+      message = ""
+
       zfeed.entries.each do | zentry |
         entry_title = zentry.title
         entry_title.gsub!(/\n/, '')
@@ -93,12 +95,14 @@ class FeedJob
         if entry.new_record
           has_new = true
           puts "- [NEW] #{entry_title}"
+          message << "#{entry_title}\n- #{zentry.url}\n"
         else
           puts "-       #{entry_title}"
         end
         entry.save
       end
       feed.save!
+      write_pubsub_message("[#{zfeed.title}] #{message}") if message.length > 0
       has_new
     end
 
@@ -109,6 +113,12 @@ class FeedJob
                     status_code: status_code,
                     has_new: has_new
                    )
+    end
+
+    def write_pubsub_message(message)
+      session = Moped::Session.new([ "127.0.0.1:27017" ])
+      session.use "pubsub"
+      session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
     end
   end
 end

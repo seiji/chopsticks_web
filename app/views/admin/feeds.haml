@@ -22,7 +22,11 @@
           [
           = feed.feed_url
           ]
-        %td= feed.last_modified.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+        %td
+          - if feed.last_modified
+            = feed.last_modified.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+          - else
+            = feed.last_modified            
         %td= feed.entries.count
         %td
           %i.fui-check-inverted.text-primary
