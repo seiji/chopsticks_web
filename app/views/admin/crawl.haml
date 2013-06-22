@@ -1,18 +1,23 @@
 = haml :nav, :layout => false
 
 - column_names = ['status', 'new','feed', 'created_at']
-
+- first_crawl = @crawls.first
 %div.container
   %ul.breadcrumb
+    %li
+      %a{:href => "/admin/crawls"} Crawls
     %li.active
-      %a{:href => "/admin/feeds"} Crawls
-
+      %a{:href => "#"}
+      = first_crawl.title
+      [
+      = first_crawl.feed_url
+      ]
   %table.table.table-striped
     %tr
     - column_names.each do |name|
       %th= name.camelize
     - @crawls.entries.each do |crawl|
-      %tr{"data-href" => "./crawls/#{CGI.escape(crawl.feed_url)}"}
+      %tr{"data-href" => "#"}
         %td
           - if crawl.status_code == 200
             %i.fui-check-inverted.text-primary

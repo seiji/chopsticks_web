@@ -9,13 +9,32 @@
         Admin
       %div.nav-collapse.collapse
         %ul.nav
-          %li
-            %a{href: '/admin/crawls'} crawls
-          %li
-            %a{href: '/admin/feeds'} feeds
-          %li
-            %a{href: '/admin/entries'} entries
-          %li
-            %a{href: '/admin/users'} users
+          - if @active == 'crawls'
+            %li
+              
+            %li.active
+              %a{href: '/admin/crawls'} crawls
+          - else
+            %li
+              %a{href: '/admin/crawls'} crawls
+          - if @active == 'feeds'
+            %li.active
+              %a{href: '/admin/feeds'} feeds
+          - else 
+            %li
+              %a{href: '/admin/feeds'} feeds
+          - if @active == 'entries'
+            %li.active
+              %a{href: '/admin/entries'} entries
+          - else
+            %li
+              %a{href: '/admin/entries'} entries
+          - if @active == 'users'
+            %li.active
+              %a{href: '/admin/users'} users
+          - else
+            %li
+              %a{href: '/admin/users'} users
+                
           
                           
