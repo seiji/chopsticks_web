@@ -9,6 +9,8 @@
 
 TODO: Write installation instructions here
 
+this required mongodb 2.4.x
+
 ## Usage
 
 TODO: Write usage instructions here

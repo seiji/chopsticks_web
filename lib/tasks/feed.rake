@@ -70,5 +70,19 @@ namespace :feed do
       FeedJob.reload(feed)
     end
   end
+
+  desc "Reload feeds"
+  task :reloads => :environment do | t |
+    feed_urls = []
+    now = Time.now
+    hour = now.hour == 0 ? 24 : now.hour
+    Feed.all.each do | feed |
+      schedule_divisor = feed.schedule_divisor || 1
+      if hour % schedule_divisor == 0
+        feed_urls << feed.feed_url
+      end
+    end
+    FeedJob.perform(feed_urls)
+  end
 end
 

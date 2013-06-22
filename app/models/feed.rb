@@ -22,7 +22,8 @@ class Feed
   include Mongoid::Document
   include Mongoid::Timestamps
   include Descriptive
-
+  field :schedule_divisor, type: Integer;
+  
   has_and_belongs_to_many :user
   has_many :entries, :autosave => true
   

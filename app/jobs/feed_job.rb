@@ -8,7 +8,7 @@ class FeedJob
   @queue = :feed
 
   class << self
-    def perform(feed_url, user_id)
+    def perform(feed_url, user_id = nil)
       Feedzirra::Feed.fetch_and_parse(feed_url,
                                       :on_success => lambda {|url, zfeed|
                                         on_success_feed(url, zfeed, user_id)
@@ -42,14 +42,29 @@ class FeedJob
       feed_url = url
       feed_etag = zfeed.etag
       feed_last_modified = zfeed.last_modified || Time.parse("9999-01-01T00:00:00.000Z")
-      feed = Feed.where({feed_url: feed_url}).find_and_modify({ '$set'  => {
-                                                                  title: feed_title,
-                                                                  url: feed_link,
-                                                                  etag: feed_etag,
-                                                                  last_modified: feed_last_modified
-                                                                },
-                                                                '$inc'  => {subscriber_count: 1}},
-                                                              {'upsert' => 'true', :new => true})
+
+      feeds = Feed.where({feed_url: feed_url})
+      feed = feeds.first
+
+      schedule_divisor = 1
+      if feed
+        schedule_divisor = feed.schedule_divisor || 1
+      end
+      feed = feeds.find_and_modify(
+                                   { '$set'  => {
+                                       title: feed_title,
+                                       url: feed_link,
+                                       etag: feed_etag,
+                                       last_modified: feed_last_modified,
+                                       schedule_divisor: schedule_divisor
+                                     },
+                                     '$inc'     => {subscriber_count: 1}
+                                   },
+                                   {
+                                     'upsert' => 'true',
+                                     :new     => true,
+                                   })
+
       has_new = update_entries?(feed, zfeed)
       if user_id
         user = User.find(user_id)
