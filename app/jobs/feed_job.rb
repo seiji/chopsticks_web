@@ -105,19 +105,28 @@ class FeedJob
           content: zentry.content,
         }
         attributes[:published] = published if published
-#        entry = feed.entries.find_or_create_by(attributes)
-        entry = feed.entries.find_or_initialize_by(attributes)
-        if entry.new_record
+#        entry = feed.entries.find_or_initialize_by(attributes)
+        entries = feed.entries.where(url: zentry.url)
+        if entries.size == 0
           has_new = true
           puts "- [NEW] #{entry_title}"
-          message << "#{entry_title}\n- #{zentry.url}\n"
+          message << "[#{zfeed.title[0, 30]}] #{entry_title}\n- #{zentry.url}\n"
         else
           puts "-       #{entry_title}"
         end
+
+        entry = entries.find_and_modify(
+                                        {
+                                          '$set'  => attributes,
+                                        },
+                                        {
+                                          'upsert' => 'true',
+                                          :new     => true,
+                                        })
         entry.save
       end
       feed.save!
-      write_pubsub_message("[#{zfeed.title}] #{message}") if message.length > 0
+      write_pubsub_message(message) if message.length > 0
       has_new
     end
 

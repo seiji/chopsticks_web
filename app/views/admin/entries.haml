@@ -26,7 +26,10 @@
           - else
             = entry.published
         %td{"nowrap" => ""}
-          = entry.updated_at.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+          - if entry.updated_at
+            = entry.updated_at.in_time_zone('Tokyo').strftime("%Y/%m/%d %H:%M:%S")
+          - else
+            = entry.updated_at
         %td
           %i.fui-check-inverted.text-primary
             
