@@ -91,8 +91,6 @@ class FeedJob
       zfeed.sanitize_entries!
       has_new = false
 
-      message = ""
-
       zfeed.entries.each do | zentry |
         entry_title = zentry.title
         entry_title.gsub!(/\n/, '')
@@ -110,10 +108,9 @@ class FeedJob
         unless entry
           has_new = true
           puts "- [NEW] #{entry_title}"
-          message << "#{entry_title} - [#{zfeed.title[0, 20]}]\n- #{zentry.url}\n"
-
           entry = Entry.new attributes
           feed.entries << entry
+          write_pubsub_message(feed, entry) 
         else
           puts "-       #{entry_title}"
           entry.update_attributes attributes
@@ -121,7 +118,6 @@ class FeedJob
         entry.save!
       end
       feed.save!
-      write_pubsub_message(zfeed, message) if message.length > 0
       has_new
     end
 
@@ -134,11 +130,13 @@ class FeedJob
                    )
     end
 
-    def write_pubsub_message(zfeed, message)
+    def write_pubsub_message(feed, entry)
+      message = "#{entry.title} - [#{feed.title[0, 20]}]\n- #{entry.url}\n"
+
       session = Moped::Session.new([ "127.0.0.1:27017" ])
       session.use "pubsub"
       session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
-      if zfeed.title =~ /android/i or zfeed.title =~ /iphone/i
+      if %w(iphone android).any? {|word| /#{word}/i =~ feed.title or /#{word}/i =~ entry.title}
         session[:crashlogs].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
       end
     end
