@@ -25,7 +25,7 @@ end
 old_pid = pid_file + '.oldbin'
 
 #listen socket_file, :backlog => 1024
-listen 8080, :tcp_nopush => true 
+listen 5100, :tcp_nopush => true 
 
 pid pid_file
 stderr_path err_log
