@@ -104,7 +104,7 @@ class FeedJob
         }
         attributes[:published] = published if published
 #        entry = feed.entries.find_or_initialize_by(attributes)
-        entry = feed.where(url: zentry.url).first
+        entry = Entry.where(url: zentry.url).first
         unless entry
           has_new = true
           puts "- [NEW] #{entry_title}"
