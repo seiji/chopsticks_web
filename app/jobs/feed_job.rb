@@ -104,7 +104,7 @@ class FeedJob
         }
         attributes[:published] = published if published
 #        entry = feed.entries.find_or_initialize_by(attributes)
-        entry = feed.entries.where(url: zentry.url).first
+        entry = feed.where(url: zentry.url).first
         unless entry
           has_new = true
           puts "- [NEW] #{entry_title}"
@@ -131,8 +131,7 @@ class FeedJob
     end
 
     def write_pubsub_message(feed, entry)
-      message = "#{entry.title} - [#{feed.title[0, 20]}]\n- #{entry.url}\n"
-
+      message = "#{entry.url}\n  #{entry.title} - [#{feed.title[0, 20]}]\n"
       session = Moped::Session.new([ "127.0.0.1:27017" ])
       session.use "pubsub"
       session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
