@@ -131,7 +131,7 @@ class FeedJob
     end
 
     def write_pubsub_message(feed, entry)
-      message = "#{entry.url}\n  #{entry.title} - [#{feed.title[0, 20]}]\n"
+      message = "#{entry.url}\n#{entry.title} - [#{feed.title[0, 20]}]\n"
       session = Moped::Session.new([ "127.0.0.1:27017" ])
       session.use "pubsub"
       session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
