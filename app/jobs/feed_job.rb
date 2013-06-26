@@ -134,7 +134,7 @@ class FeedJob
       message = "#{entry.url}\n#{entry.title} - [#{feed.title[0, 20]}]\n"
       session = Moped::Session.new([ "127.0.0.1:27017" ])
       session.use "pubsub"
-      session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
+      session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i, formats: {0: ["underline"], 1: ["bold", "orange"]})
 
       # if %w(iphone android).any? {|word| /#{word}/i =~ feed.title or /#{word}/i =~ entry.title}
       #   session[:crashlogs].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
