@@ -13,7 +13,11 @@
       %th= name.camelize
     - @entries.entries.each do |entry|
       %tr{"data-href" => "#"}
-        %td= entry.feed.title
+        %td
+          - if entry.feed
+            = entry.feed.title
+          - else
+            No feed
         %td
           - if entry.url
             %a{:href => entry.url}
