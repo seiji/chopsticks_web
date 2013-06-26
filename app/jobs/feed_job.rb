@@ -136,9 +136,9 @@ class FeedJob
       session.use "pubsub"
       session[:seijit].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
 
-      if %w(iphone android).any? {|word| /#{word}/i =~ feed.title or /#{word}/i =~ entry.title}
-        session[:crashlogs].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
-      end
+      # if %w(iphone android).any? {|word| /#{word}/i =~ feed.title or /#{word}/i =~ entry.title}
+      #   session[:crashlogs].insert(message: message, _id:(Time.now.to_f * 1000.0).to_i)
+      # end
     end
   end
 end
