@@ -138,7 +138,7 @@ class FeedJob
                               _id:(Time.now.to_f * 1000.0).to_i,
                               formats: {
                                 "0" => ["underline"],
-                                "1" => ["bold", "aqua"]
+                                "1" => ["bold", "lime"]
                               })
 
       # if %w(iphone android).any? {|word| /#{word}/i =~ feed.title or /#{word}/i =~ entry.title}
