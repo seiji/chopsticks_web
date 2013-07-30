@@ -49,6 +49,19 @@ class Feed
     def add_async(feed_url, user_id)
       Resque.enqueue(FeedJob, feed_url, user_id)
     end
+
+    def remove(feed_url)
+      feed = self.where(feed_url: feed_url).first
+      if feed
+        feed.entries.each do |entry|
+          p entry.title
+        end
+        feed.entries.delete_all
+        feed.delete
+      else
+        puts "not have feed"
+      end
+    end
   end
 
   def entry(entry_id)

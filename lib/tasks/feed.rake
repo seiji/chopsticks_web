@@ -63,6 +63,11 @@ namespace :feed do
     end
   end
 
+  desc "Remove a feed"
+  task :remove, [:feed_url] => :environment do |t, args|
+    Feed.remove(args[:feed_url])
+  end
+
   desc "Reload a feed"
   task :reload, [:feed_url] => :environment do |t, args|
     feed = Feed.where(:feed_url => args[:feed_url]).first
